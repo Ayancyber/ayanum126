@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayan - Login & Sign Up</title>
+    <style>
+        body {
+            font-family: Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle {
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Ensures content stays inside */
+            box-sizing: border-box;
+            transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+        }
+
+        .circle.login {
+            transform: translateX(-100px); /* Reduced offset for overlapping radii */
+            z-index: 1;
+        }
+
+        .circle.signup {
+            transform: translateX(100px); /* Reduced offset for overlapping radii */
+            z-index: 0;
+        }
+
+        .circle.active {
+            z-index: 2;
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        .circle.inactive {
+            filter: blur(8px);
+            opacity: 0.6;
+        }
+
+        .logo img {
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 400;
+            color: #202124;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            width: 90%; /* Keeps input fields inside the circle */
+            max-width: 280px;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #dadce0;
+            border-radius: 50px;
+            font-size: 16px;
+            color: #202124;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 4px rgba(26, 115, 232, 0.4);
+        }
+
+        button {
+            width: 90%;
+            max-width: 280px;
+            padding: 12px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #155cb0;
+        }
+
+        .switch-btn {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .switch-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Login Circle -->
+        <div id="loginCircle" class="circle login active">
+            <div class="logo">
+                <img src="https://via.placeholder.com/80?text=Ayan" alt="Ayan Logo">
+            </div>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email or phone" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="button" onclick="login()">Login</button>
+            </form>
+            <span class="switch-btn" onclick="switchToSignUp()">Don't have an account? Sign Up</span>
+        </div>
+
+        <!-- Sign-Up Circle -->
+        <div id="signUpCircle" class="circle signup inactive">
+            <div class="logo">
+                <img src="https://via.placeholder.com/80?text=Ayan" alt="Ayan Logo">
+            </div>
+            <h2>Sign Up</h2>
+            <form id="signUpForm">
+                <input type="text" id="signUpName" placeholder="Full Name" required>
+                <input type="email" id="signUpEmail" placeholder="Email or phone" required>
+                <input type="password" id="signUpPassword" placeholder="Password" required>
+                <button type="button" onclick="signUp()">Sign Up</button>
+            </form>
+            <span class="switch-btn" onclick="switchToLogin()">Already have an account? Login</span>
+        </div>
+    </div>
+
+    <script>
+        const loginCircle = document.getElementById('loginCircle');
+        const signUpCircle = document.getElementById('signUpCircle');
+
+        function switchToSignUp() {
+            loginCircle.classList.add('inactive');
+            loginCircle.classList.remove('active');
+            signUpCircle.classList.add('active');
+            signUpCircle.classList.remove('inactive');
+        }
+
+        function switchToLogin() {
+            signUpCircle.classList.add('inactive');
+            signUpCircle.classList.remove('active');
+            loginCircle.classList.add('active');
+            loginCircle.classList.remove('inactive');
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            if (email && password) {
+                alert(`Logged in as ${email}`);
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        function signUp() {
+            const name = document.getElementById('signUpName').value;
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+            if (name && email && password) {
+                alert(`Account created for ${name}`);
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+    </script>
+</body>
+</html>
